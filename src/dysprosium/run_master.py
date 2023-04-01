@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # from parse import compile  # type: ignore
 
-from Dy_utils.dataclasses import (
+from dysprosium.utilities.dataclasses import (  # type: ignore
     AtomicParameters,
     # Constant,
     # LevelCrossing,
@@ -14,7 +14,7 @@ from Dy_utils.dataclasses import (
 )
 
 # from Dy_utils.level_splittings import construct_B_df, construct_level_splitting_df
-from Dy_utils.operators import Operators
+from dysprosium.utilities.operators import Operators  # type: ignore
 
 # from Dy_utils.phonon_process import PhononProcess
 # from Dy_utils.plotting import plot_rates

@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
+import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
 
-from Dy_utils.dataclasses import LevelCrossing
+from dysprosium.utilities.dataclasses import LevelCrossing  # type: ignore
 
 
 def empty_level_splitting():

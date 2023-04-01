@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import numpy as np
+import numpy as np  # type: ignore
 
-from Dy_utils.dataclasses import Constant
-from Dy_utils.energy_difference_utils import EnergyDifferenceUtils
-from Dy_utils.operators import Operators
+from dysprosium.utilities.dataclasses import Constant  # type: ignore
+from dysprosium.utilities.energy_difference_utils import EnergyDifferenceUtils  # type: ignore
+from dysprosium.utilities.operators import Operators  # type: ignore
 
 
 class PhononProcess(Operators):

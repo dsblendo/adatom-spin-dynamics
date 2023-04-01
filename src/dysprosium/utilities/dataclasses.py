@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field  # type: ignore
 from pathlib import Path
 from typing import Iterator
 
-import numpy as np
+import numpy as np  # type: ignore
 from parse import compile  # type: ignore
 
 
