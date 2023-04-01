@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
+import pandas as pd  # type: ignore
 
 from Dy_utils.dataclasses import LevelCrossing
 
@@ -71,7 +71,7 @@ def construct_level_splitting_df(
 
 
 def construct_B_df(
-    directory: Path, filenames: str, n_s, sweep_rate, sweep_num, B_63, B_66
+    directory: Path, filenames: list[str], n_s, sweep_rate, sweep_num, B_63, B_66
 ):
     df = construct_level_splitting_df(directory, filenames, n_s, sweep_rate)
 

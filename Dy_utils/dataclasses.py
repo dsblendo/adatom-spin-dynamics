@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Iterator
 
 import numpy as np
-from parse import compile
+from parse import compile  # type: ignore
 
 
 @dataclass
