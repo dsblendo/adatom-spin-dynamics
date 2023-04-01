@@ -11,6 +11,7 @@ from parse import compile
 @dataclass
 class Constant:
     """Convenience class for holding global constants."""
+
     mu_b: float = 0.05788  # meV/K
     k_b: float = 0.08617  # meV/K
     h_bar: float = 6.58211928 * (10 ** -13)  # meV-S
@@ -36,6 +37,7 @@ class Constant:
 @dataclass
 class AtomicParameters:
     """Atomic parameters."""
+
     v_s: float = 1 / 2
     v_d: float = 1 / 2
     s: float = 8
@@ -45,6 +47,7 @@ class AtomicParameters:
 @dataclass
 class SystemParameters:
     """System parameters."""
+
     T: float = 6.5
 
     bias: float = 1
@@ -123,6 +126,7 @@ class SystemParameters:
 @dataclass
 class LevelCrossing:
     """Level crossing"""
+
     B_z: float
     E: float  # meV
     lower_eig: str
