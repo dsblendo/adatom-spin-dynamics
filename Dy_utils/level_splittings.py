@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from dysprosium.utilities.dataclasses import LevelCrossing  # type: ignore
+from Dy_utils.dataclasses import LevelCrossing
 
 
 def empty_level_splitting():

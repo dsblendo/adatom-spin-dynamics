@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 from qutip import operators, tensor
 
-from dysprosium.utilities.dataclasses import AtomicParameters, Constant, SystemParameters  # type: ignore
+from Dy_utils.dataclasses import AtomicParameters, Constant, SystemParameters
 
 
 class Operators:

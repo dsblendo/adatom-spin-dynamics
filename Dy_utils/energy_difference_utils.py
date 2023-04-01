@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import numpy as np  # type: ignore
+import numpy as np
 
-from dysprosium.utilities.dataclasses import Constant, SystemParameters  # type: ignore
+from Dy_utils.dataclasses import Constant, SystemParameters
 
 
 class EnergyDifferenceUtils:

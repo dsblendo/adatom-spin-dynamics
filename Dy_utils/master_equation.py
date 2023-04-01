@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import numpy as np  # type: ignore
-from scipy.integrate import odeint  # type: ignore
-from scipy.optimize import curve_fit  # type: ignore
+import numpy as np
+from scipy.integrate import odeint
+from scipy.optimize import curve_fit
 
-from dysprosium.utilities.dataclasses import Constant  # type: ignore
-from dysprosium.utilities.electron_rates import ElectronRates  # type: ignore
-from dysprosium.utilities.operators import Operators  # type: ignore
-from dysprosium.utilities.plotting import plot_master, plot_tau_fit  # type: ignore
+from Dy_utils.dataclasses import Constant
+from Dy_utils.electron_rates import ElectronRates
+from Dy_utils.operators import Operators
+from Dy_utils.plotting import plot_master, plot_tau_fit
 
 
 def dP_dt(P, t, rat_mat):
