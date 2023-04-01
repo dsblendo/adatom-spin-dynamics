@@ -1,0 +1,50 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: system
+        name: Autoflake
+        entry: poetry run autoflake --in-place --remove-unused-variables --recursive ./src ./tests
+        pass_filenames: false
+        language: system
+      - id: system
+        name: Tab Characters
+        entry: sh utils/check-tabs.sh
+        pass_filenames: false
+        language: system
+      - id: system
+        name: Black
+        entry: poetry run black .
+        pass_filenames: false
+        language: system
+      - id: system
+        name: isort
+        entry: poetry run isort .
+        pass_filenames: false
+        language: system
+      - id: system
+        name: MyPy
+        entry: poetry run mypy
+        pass_filenames: false
+        language: system
+        args: [
+          "src",
+          "tests",
+          "--warn-unused-ignores"
+        ]
+        verbose: true
+      - id: system
+        name: Pylint
+        entry: poetry run pylint src tests
+        pass_filenames: false
+        language: system
+        verbose: true
+      # - id: system
+      #   name: Coverage
+      #   entry: poetry run coverage report --fail-under=80 --skip-empty --skip-covered --show-missing
+      #   pass_filenames: false
+      #   language: system
+      #   verbose: true
