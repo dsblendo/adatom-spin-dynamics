@@ -10,11 +10,29 @@ from parse import compile
 
 @dataclass
 class Constant:
-    """Convenience class for holding global constants."""
+    """Convenience class for holding global constants.
+    
+    Args:
+        mu_b: Bohr magnaton, units in meV/K
+        k_b: Boltzmann's constant, units in meV/K
+        h_bar: h_bar, units in meV.S
+        A_sf: Interatomic exchange coupling between 6s and 4f shells
+        A_df: Interatomic exchange coupling between 5d and 4f shells
+        A_sd: Interatomic exchange coupling between 6s and 5d shells
+        F: Hyperfine coupling constant
+        g: g-Lande factor
+        g_z: z-component of the g-Lande factor
+        c: Speed of sound in graphene
+        rho: Density of graphene
+        meVtoJ: meV to Joule conversion
+        e: Coulomb charge
+        Dydensity: Dysprosium surface coverage on graphene
+        phi_o: Photon flux, units in nm-2 s-1
+    """
 
-    mu_b: float = 0.05788  # meV/K
-    k_b: float = 0.08617  # meV/K
-    h_bar: float = 6.58211928 * (10 ** -13)  # meV-S
+    mu_b: float = 0.05788
+    k_b: float = 0.08617
+    h_bar: float = 6.58211928 * (10 ** -13)
 
     # Couplings
     A_sf: float = 3.1
