@@ -54,7 +54,14 @@ class Constant:
 
 @dataclass
 class AtomicParameters:
-    """Atomic parameters."""
+    """Shell-spin components.
+    
+    Args:
+        v_s: Spin of the s-shell
+        v_d: Spin of the d-shell
+        s: Spin of the f-shell
+        n_s: Nuclear spin
+    """
 
     v_s: float = 1 / 2
     v_d: float = 1 / 2
