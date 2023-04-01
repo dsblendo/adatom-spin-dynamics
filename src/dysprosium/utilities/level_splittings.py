@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np  # type: ignore
-import pandas as pd  # type: ignore
+import numpy as np
+import pandas as pd
 
 from dysprosium.utilities.dataclasses import LevelCrossing  # type: ignore
 
@@ -71,7 +71,7 @@ def construct_level_splitting_df(
 
 
 def construct_B_df(
-    directory: Path, filenames: list[str], n_s, sweep_rate, sweep_num, B_63, B_66
+    directory: Path, filenames: str, n_s, sweep_rate, sweep_num, B_63, B_66
 ):
     df = construct_level_splitting_df(directory, filenames, n_s, sweep_rate)
 

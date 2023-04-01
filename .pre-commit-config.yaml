@@ -20,11 +20,11 @@ repos:
         entry: poetry run black .
         pass_filenames: false
         language: system
-      # - id: system
-      #   name: isort
-      #   entry: poetry run isort .
-      #   pass_filenames: false
-      #   language: system
+      - id: system
+        name: isort
+        entry: poetry run isort .
+        pass_filenames: false
+        language: system
       - id: system
         name: MyPy
         entry: poetry run mypy

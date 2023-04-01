@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import math
 
-import matplotlib.pyplot as plt  # type: ignore
-import numpy as np  # type: ignore
-import numpy.ma as ma  # type: ignore
+import matplotlib.pyplot as plt
+import numpy as np
+import numpy.ma as ma
 
 
 def format_master(axis, col, row):
