@@ -43,7 +43,7 @@ repos:
         pass_filenames: false
         language: system
         verbose: true
-        args: ["--disable=C0103", "--fail-under=7.5"]
+        args: ["--disable=C0103,R0904,R0913,R0914", "--fail-under=7.5"]
       # - id: system
       #   name: Coverage
       #   entry: poetry run coverage report --fail-under=80 --skip-empty --skip-covered --show-missing
