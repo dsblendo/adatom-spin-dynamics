@@ -1,3 +1,4 @@
+"""Place to hold for convenient dataclasses."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -5,30 +6,12 @@ from pathlib import Path
 from typing import Iterator
 
 import numpy as np
-from parse import compile
+from parse import compile  # pylint: disable=redefined-builtin
 
 
 @dataclass
 class Constant:
-    """Convenience class for holding global constants.
-    
-    Args:
-        mu_b: Bohr magnaton, units in meV/K
-        k_b: Boltzmann's constant, units in meV/K
-        h_bar: h_bar, units in meV.S
-        A_sf: Interatomic exchange coupling between 6s and 4f shells
-        A_df: Interatomic exchange coupling between 5d and 4f shells
-        A_sd: Interatomic exchange coupling between 6s and 5d shells
-        F: Hyperfine coupling constant
-        g: g-Lande factor
-        g_z: z-component of the g-Lande factor
-        c: Speed of sound in graphene
-        rho: Density of graphene
-        meVtoJ: meV to Joule conversion
-        e: Coulomb charge
-        Dydensity: Dysprosium surface coverage on graphene
-        phi_o: Photon flux, units in nm-2 s-1
-    """
+    """Convenience class for holding global constants."""
 
     mu_b: float = 0.05788
     k_b: float = 0.08617
@@ -54,14 +37,7 @@ class Constant:
 
 @dataclass
 class AtomicParameters:
-    """Shell-spin components.
-    
-    Args:
-        v_s: Spin of the s-shell
-        v_d: Spin of the d-shell
-        s: Spin of the f-shell
-        n_s: Nuclear spin
-    """
+    """Shell-spin components."""
 
     v_s: float = 1 / 2
     v_d: float = 1 / 2
@@ -71,7 +47,7 @@ class AtomicParameters:
 
 @dataclass
 class SystemParameters:
-    """System parameters."""
+    """Experimental system parameters."""
 
     T: float = 6.5
 
@@ -113,6 +89,7 @@ class SystemParameters:
     SzRSS: float = field(init=False)
 
     def __post_init__(self):
+        """Post initialization."""
         self.beta = 1 / (self.T * Constant.k_b)
 
         self.tippol = (self.tipu - self.tipd) / (self.tipu + self.tipd)
@@ -145,12 +122,17 @@ class SystemParameters:
         self.SzRSS = self.surfu * self.surfu + self.surfd * self.surfd
 
     def fermi(self, bias):
+        """Caluclate Fermi distribution.
+
+        Args:
+            bias: Tunneling bias, units in meV.
+        """
         return -bias / (np.exp(-bias * self.beta) - 1)
 
 
 @dataclass
 class LevelCrossing:
-    """Level crossing"""
+    """Level crossing information."""
 
     B_z: float
     E: float  # meV
@@ -168,6 +150,15 @@ class LevelCrossing:
 
     @classmethod
     def load_csv(cls, directory: Path, filename: str) -> Iterator[LevelCrossing]:
+        """Loads stored level crossing information from csv files.
+
+        Args:
+            directory: Path to directory containing csv files.
+            filename: Name of csv file.
+        Yields:
+            level_crossing: Dataclass containing level crossing information.
+
+        """
         path = directory / filename
         with open(path, "r") as file:
             next(file)
@@ -186,17 +177,33 @@ class LevelCrossing:
 
     @staticmethod
     def parse_single_num(string_value: str) -> float:
+        """Parse the number for a specifically formatted string.
+
+        Args:
+            string_value: A string structured as '|{number} >'
+        """
         format_splitting = compile("|{num} >")
         parse_result = format_splitting.parse(string_value)
         return float(parse_result["num"])
 
     @staticmethod
     def parse_double_num(string_value: str) -> tuple[float, float]:
+        """Parse the numbers from a specifically formatted string.
+
+        Args:
+            string_value: A string structured as '|{num1}, , {num2}>'
+        """
         format_splitting = compile("|{num1}, , {num2}>")
         parse_result = format_splitting.parse(string_value)
         return (float(parse_result["num1"]), float(parse_result["num2"]))
 
     def populate_attr(self, n_s, sweep_rate):
+        """Populate the level splitting attributes accordingly.
+
+        Args:
+            n_s: The nuclear spin
+            sweep_rate: The magnetic field sweep rate
+        """
         if n_s == 5 / 2:
             self.J_z_lower, self.Ns_z_lower = self.parse_double_num(self.lower_eig)
             self.J_z_upper, self.Ns_z_upper = self.parse_double_num(self.lower_eig)
