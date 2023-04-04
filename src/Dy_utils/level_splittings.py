@@ -1,3 +1,4 @@
+"""Functions for create level splitting data structures."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -5,10 +6,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from Dy_utils.dataclasses import LevelCrossing
+from Dy_utils.structures import LevelCrossing
 
 
 def empty_level_splitting():
+    """Create the avoided level crossing information."""
     # the three rows are utility functions to pass the avoided level crossing
     # information into the functions that calculate the rates
     arr = np.empty((1, 6))
@@ -28,6 +30,14 @@ def empty_level_splitting():
 
 
 def get_local_files(directory: Path, filenames: list[str], n_s, sweep_rate):
+    """Get the level crossings from local csv files.
+
+    Args:
+        directory: The directory holding the csv files
+        filenames: A list of local csv filenames, including the .csv extension
+        n_s: The nuclear spin
+        sweep_rate: The magnetic field sweep rate, units in Tesla/s
+    """
     for filename in filenames:
         for level_crossing in LevelCrossing.load_csv(directory, filename):
             level_crossing.populate_attr(n_s, sweep_rate)
@@ -37,6 +47,14 @@ def get_local_files(directory: Path, filenames: list[str], n_s, sweep_rate):
 def construct_level_splitting_df(
     directory: Path, filenames: list[str], n_s, sweep_rate
 ):
+    """Construct a dataframe of level splittings.
+
+    Args:
+        directory: The directory holding the csv files
+        filenames: A list of local csv filenames, including the .csv extension
+        n_s: The nuclear spin
+        sweep_rate: The magnetic field sweep rate, units in Tesla/s
+    """
     df = pd.DataFrame(
         file for file in get_local_files(directory, filenames, n_s, sweep_rate)
     )
@@ -71,8 +89,19 @@ def construct_level_splitting_df(
 
 
 def construct_B_df(
-    directory: Path, filenames: str, n_s, sweep_rate, sweep_num, B_63, B_66
+    directory: Path, filenames: list[str], n_s, sweep_rate, sweep_num, B_63, B_66
 ):
+    """Construct a dataframe of level splittings.
+
+    Args:
+        directory: The directory holding the csv files
+        filenames: A list of local csv filenames, including the .csv extension
+        n_s: The nuclear spin
+        sweep_rate: The magnetic field sweep rate, units in Tesla/s
+        sweep_num: Number of points in the magnetic field range
+        B_63: B63 crystal field parameter
+        B_66: B66 crystal field parameter
+    """
     df = construct_level_splitting_df(directory, filenames, n_s, sweep_rate)
 
     B_sweep = np.linspace(-6, 6, sweep_num)
