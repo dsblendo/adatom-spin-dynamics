@@ -1,3 +1,4 @@
+"""Class to calculate electron rate equations."""
 from __future__ import annotations
 
 import numpy as np
@@ -8,7 +9,16 @@ from Dy_utils.operators import Operators
 
 
 class ElectronRates(Operators):
+    """Calculates electron rate equations."""
+
     def get_idx(self, states_df):
+        """Get the correct energenic ordering of states.
+
+        Args:
+            states_df: DataFrame containing states.
+        Returns:
+            idx: Index with correct energetic ordering of states.
+        """
         if self.atm.n_s == 5 / 2:
             lx = empty_level_splitting()
             states_df["4f_z"] = states_df["4f_z"].round(2)
@@ -43,15 +53,33 @@ class ElectronRates(Operators):
         return idx
 
     def get_energies(self, states_df):
+        """Get the energy of each state.
+
+        Args:
+            states_df: DataFrame containing states.
+        Returns:
+            energies: Array of state energies, in units meV.
+        """
         if self.atm.n_s == 5 / 2:
             energies = states_df.sort_values(["4f_z", "Ns_z"], ascending=[True, True])[
                 "E (meV)"
             ].to_numpy()
         else:
-            energies = energies = states_df.sort_values("4f_z")["E (meV)"].to_numpy()
+            energies = states_df.sort_values("4f_z")["E (meV)"].to_numpy()
         return energies
 
     def mat_ele_el(self, energy_diff, states):
+        """Get the electron tunneling matrix elements.
+
+        Args:
+            energy_diff: Matrix of state energy differences,
+              with dimensions (len(states) x len(states)).
+            states: Matrix of states.
+        Returns:
+            mat_ele_el_z: Electron rate z matrix element.
+            mat_ele_el_p: Electron rate plus matrix element.
+            mat_ele_el_m: Electron rate minus matrix element.
+        """
         if self.atm.n_s == 5 / 2:
             shapey = 2304
         else:
@@ -92,6 +120,18 @@ class ElectronRates(Operators):
         return mat_ele_el_z, mat_ele_el_p, mat_ele_el_m
 
     def el_rat_mat(self, energy_diff, states, rat_mat, sec_el, surface_only):
+        """Get the energy of each state.
+
+        Args:
+            energy_diff: Matrix of state energy differences,
+              with dimensions (len(states) x len(states)).
+            states: Matrix of states.
+            rat_mat: Rate matrix to add elecron rates to.
+            sec_el: Secondary electron contribution.
+            surface_only: Whether to include only surface-to-surface scattering term.
+        Returns:
+            el_rat_mat: Rate matrix with e;ectron rates added in.
+        """
         energy_diff_fcns = EnergyDifferenceUtils(self.sys, energy_diff)
         mat_ele_el_z, mat_ele_el_p, mat_ele_el_m = self.mat_ele_el(energy_diff, states)
         ele_trates_T = (
