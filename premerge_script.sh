@@ -103,7 +103,7 @@ run_mypy() {
       run_install
    fi
 
-   poetry run mypy src tests 
+   poetry run mypy src tests
    if [ $? != 0 ]; then
       exit 1
    fi
